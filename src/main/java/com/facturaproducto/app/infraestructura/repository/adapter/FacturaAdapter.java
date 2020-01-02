@@ -2,6 +2,7 @@ package com.facturaproducto.app.infraestructura.repository.adapter;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ import com.facturaproducto.app.infraestrutura.repository.database.FacturaReposit
 import com.facturaproducto.app.shared.domain.Codigo;
 
 @Service
-public class FacturaAdapter implements FacturaService{
-	
+public class FacturaAdapter implements FacturaService {
+
 	@Autowired
 	FacturaRepository facturaRepository;
 	@Autowired
@@ -23,31 +24,28 @@ public class FacturaAdapter implements FacturaService{
 	@Override
 	public List<Factura> findByIds(List<Codigo> codigos) {
 		// TODO Auto-generated method stub
-		return null;
+		return facturaMapper.transformarListaDtoParaDominio(facturaRepository
+				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())));
 	}
 
 	@Override
 	public List<Factura> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return facturaMapper.transformarListaDtoParaDominio(facturaRepository.findAll());
 	}
 
 	@Override
 	public void save(Factura factura) {
-		// TODO Auto-generated method stub
-		
+		facturaRepository.save(facturaMapper.transformarDominioParaDto(factura));
 	}
 
 	@Override
 	public void deleteById(Codigo codigo) {
-		// TODO Auto-generated method stub
-		
+		facturaRepository.deleteById(codigo.getValue());
+
 	}
 
 	@Override
 	public Optional<Factura> findById(Codigo codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		return facturaMapper.transformarDtoParaDominio(facturaRepository.findById(codigo.getValue()));
 	}
-
 }

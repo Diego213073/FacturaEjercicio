@@ -1,5 +1,7 @@
-package com.facturaproducto.app.exceptions;
+package com.facturaproducto.app.shared.domain.dto;
 
+
+//Clase relacionada con ExceptionHandlers, los atributos guardarán un código auto-generado por UUID y un mensaje de error
 public class ErrorCode {
 	private String codigo;
 	private String mensaje;

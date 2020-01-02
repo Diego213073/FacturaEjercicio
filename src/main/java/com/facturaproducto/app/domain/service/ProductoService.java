@@ -1,24 +1,24 @@
 package com.facturaproducto.app.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import com.facturaproducto.app.domain.models.Producto;
+import com.facturaproducto.app.shared.domain.Codigo;
 
 @Component
 public interface ProductoService {
 
+	public List<Producto> findByIds(List<Codigo> codigos);
+
 	public List<Producto> findAll();
 
-	public void guardar(Producto producto);
+	public void save(Producto producto);
 
-	public void editar(Producto producto);
+	public void deleteById(Codigo codigo);
 
-	public Producto buscarUno(String codigo);
-
-	public void eliminar(String codigo);
-
-	public List<Producto> buscartodosIds(List<String> codigos);
+	public Optional<Producto> findById(Codigo codigo);
 
 }

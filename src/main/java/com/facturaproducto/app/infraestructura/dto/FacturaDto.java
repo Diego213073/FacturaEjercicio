@@ -15,6 +15,19 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class FacturaDto extends BaseEntity {
 
+	public FacturaDto(Double valorTotal, String nombreCliente, List<ItemDto> items) {
+		this.valorTotal = valorTotal;
+		this.nombreCliente = nombreCliente;
+		this.items = items;
+	}
+
+	
+	/*Constructor vacio para evitar errores al momento de configurar
+	correctamente (setear) los datos con respecto a los campos que vienen del formulario
+	*/
+	public FacturaDto() {
+	}
+
 	private static final long serialVersionUID = 1L;
 	private Double valorTotal;
 	private String nombreCliente;
@@ -44,11 +57,5 @@ public class FacturaDto extends BaseEntity {
 	public void setItems(List<ItemDto> items) {
 		this.items = items;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	public FacturaDto() {}
 
 }

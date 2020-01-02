@@ -8,19 +8,13 @@ import javax.persistence.Table;
 @Table(name = "items")
 public class ItemDto extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
 	private Integer cantidad;
-	private Double valortotal;
+	private Double valorTotal;
 
 	@OneToOne(targetEntity = ProductoDto.class)
 	private ProductoDto producto;
-
-	public ItemDto(Integer cantidad, Double valortotal, ProductoDto producto) {
-		this.cantidad = cantidad;
-		this.valortotal = valortotal;
-		this.producto = producto;
-	}
 
 	public Integer getCantidad() {
 		return cantidad;
@@ -30,12 +24,12 @@ public class ItemDto extends BaseEntity {
 		this.cantidad = cantidad;
 	}
 
-	public Double getValortotal() {
-		return valortotal;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValortotal(Double valortotal) {
-		this.valortotal = valortotal;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public ProductoDto getProducto() {
@@ -46,11 +40,15 @@ public class ItemDto extends BaseEntity {
 		this.producto = producto;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public ItemDto() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public ItemDto() {
+	public ItemDto(String codigo, Integer cantidad, Double valorTotal, ProductoDto producto) {
+		this.setCodigo(codigo);
+		this.cantidad = cantidad;
+		this.valorTotal = valorTotal;
+		this.producto = producto;
 	}
 
 }

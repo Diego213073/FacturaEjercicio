@@ -1,6 +1,8 @@
 package com.facturaproducto.app.infraestructura.mapper;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,38 +23,56 @@ public class FacturaMapper implements MapperRepository<FacturaDto, Factura>, Map
 	ItemMapper itemMapper;
 
 	@Override
-	public FacturaRestDto apiConvertirDtoaDominio(Factura o) {
-		FacturaRestDto facturaRest = new FacturaRestDto();
-		facturaRest.setCodigo(o.getCodigo().getValue());
-		facturaRest.setNombreCliente(o.getNombreCliente().getValue());
-		facturaRest.setValorTotal(o.getValorTotal().getValue());
-		facturaRest.setItems(itemMapper.apiconvertirDtoaDominio(o.getItems()));
-		return facturaRest;
-	}
-
-	@Override
-	public Factura apiConvertirDominioaDto(FacturaRestDto i) {
-		return Factura.of(new Codigo(i.getCodigo()), new ValorTotal(i.getValorTotal()),
-				new Nombre(i.getNombreCliente()), itemMapper.apiconvertirDominioaDto(i.getItems()));
-	}
-
-	@Override
-	public FacturaDto convertirDtoaDominio(Factura o) {
+	public FacturaDto transformarDominioParaDto(Factura factura) {
 		FacturaDto facturaDto = new FacturaDto();
-		facturaDto.setCodigo(o.getCodigo().getValue());
-		facturaDto.setNombreCliente(o.getNombreCliente().getValue());
-		facturaDto.setValorTotal(o.getValorTotal().getValue());
-		facturaDto.setItems(itemMapper.convertirDtoaDominio(o.getItems()));
+		facturaDto.setCodigo(factura.getCodigo().getValue());
+		facturaDto.setNombreCliente(factura.getNombreCliente().getValue());
+		facturaDto.setValorTotal(factura.getValorTotal().getValue());
+		facturaDto.setItems(itemMapper.transformarListDominioParaDto(factura.getItems()));
 		return facturaDto;
 	}
 
 	@Override
-	public Factura convertirDominioaDto(FacturaDto i) {
-		return Factura.of(new Codigo(i.getCodigo()), new ValorTotal(i.getValorTotal()),
-				new Nombre(i.getNombreCliente()),
-				itemMapper.convertirDominioaDto(i.getItems()));
+	public Factura transformarDtoParaDominio(FacturaDto facturaDto) {
+		return Factura.of(new Codigo(facturaDto.getCodigo()), new ValorTotal(facturaDto.getValorTotal()),
+				new Nombre(facturaDto.getNombreCliente()),
+				itemMapper.transformarListaDtoParaDominio(facturaDto.getItems()));
 	}
-	
+
+	@Override
+	public Optional<Factura> transformarDtoParaDominio(Optional<FacturaDto> i) {
+		if (!i.isPresent())
+			return Optional.empty();
+
+		return Optional.of(this.transformarDtoParaDominio(i.get()));
+	}
+
+	@Override
+	public Optional<FacturaDto> transformarDominioParaDto(Optional<Factura> o) {
+		if (!o.isPresent())
+			return Optional.empty();
+
+		return Optional.of(this.transformarDominioParaDto(o.get()));
+	}
+
+	@Override
+	public FacturaRestDto apiConvertirDominioParaDto(Factura o) {
+		FacturaRestDto facturaRest = new FacturaRestDto();
+		facturaRest.setCodigo(o.getCodigo().getValue());
+		facturaRest.setNombreCliente(o.getNombreCliente().getValue());
+		facturaRest.setValorTotal(o.getValorTotal().getValue());
+		facturaRest.setItems(itemMapper.apitransformarListDominioParaDto(o.getItems()));
+
+		return facturaRest;
+	}
+
+	@Override
+	public Factura apiConvertirDtoParaDominio(FacturaRestDto i) {
+
+		return Factura.of(new Codigo(i.getCodigo()), new ValorTotal(i.getValorTotal()),
+				new Nombre(i.getNombreCliente()), itemMapper.apitransformarListaDtoParaDominio(i.getItems()));
+
+	}
 	
 	
 	

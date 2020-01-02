@@ -1,21 +1,19 @@
 package com.facturaproducto.app.infraestructura.restdto;
 
 public class ProductoRestDto {
-	
+
 	private String codigo;
 	private String nombre;
 	private Double valor;
-	
-	
-	
-	
+
 	public ProductoRestDto(String codigo, String nombre, Double valor) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.valor = valor;
 	}
 
-	public ProductoRestDto() {}
+	public ProductoRestDto() {
+	}
 
 	public String getCodigo() {
 		return codigo;
@@ -40,7 +38,5 @@ public class ProductoRestDto {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	
-	
 
 }

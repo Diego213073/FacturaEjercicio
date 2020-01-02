@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.facturaproducto.app.shared.domain.dto.ErrorCode;
+
 @RestControllerAdvice
 public class ExceptionHandlers {
 
@@ -22,21 +24,21 @@ public class ExceptionHandlers {
 	}
 	
 	
-//
-//	//En caso de un error fuera del rango
-//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//	@ExceptionHandler(Exception.class)
-//	public ErrorCode handlerException(Exception e) {
-//		ErrorCode code = new ErrorCode();
-//		code.setCodigo(this.generarId());
-//		code.setMensaje("Error no controlado");
-//		this.LogError(code, e);
-//		return code;
-//	}
+
+	//En caso de un error fuera del rango
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(Exception.class)
+	public ErrorCode handlerException(Exception e) {
+		ErrorCode code = new ErrorCode();
+		code.setCodigo(this.generarId());
+		code.setMensaje("Error no controlado");
+		this.LogError(code, e);
+		return code;
+	}
 	
 	//Generar error de código 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(CodigoNovalidoException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)//Se señala un error, proporcionando un mensaje de error.
+	@ExceptionHandler(CodigoNovalidoException.class)//Convierte exception en un estadp de respuesta HTTP.
 	public ErrorCode codigonovalido(Exception e) {
 		ErrorCode code = new ErrorCode();
 		code.setCodigo(this.generarId());

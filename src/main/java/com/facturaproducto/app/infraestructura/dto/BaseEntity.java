@@ -30,7 +30,7 @@ public class BaseEntity implements Serializable {
 
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_actualizacion", nullable = false, updatable = false) //NULLABLE-QUE NO PERMITA NULO,UPDATEABLE-NO PERMITA LA CREACÓN DE NUEVA FECHA
+	@Column(name = "fecha_actualizacion", nullable = false, updatable = false) //NULLABLE-QUE NO PERMITA NULO,UPDATEABLE-NO PERMITA LA CREACIÓN DE NUEVAs FECHAs
 	private Date fechaActualizacion;
 
 	public String getCodigo() {
